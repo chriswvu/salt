@@ -84,3 +84,25 @@ def read_file(file_name):
         salt '*' pam.read_file /etc/pam.d/login
     '''
     return _parse(file_name=file_name)
+
+def get_rules(file_name, arguments=None, control_flag=None, interface=None,
+              module=None):
+    '''
+    '''
+    rules = read_file(file_name)
+    matches = []
+    for rule in rules:
+        match = False
+        if interface in rule.itervalues():
+            match = True
+        if control_flag in rule.itervalues():
+            match = True
+        if module in rule.itervalues():
+            match = True
+        if arguments:
+            for key in rule.keys():
+                if arguments in rule[key]:
+                   match = True
+        if match:
+            matches.append(rule)
+    return matches
