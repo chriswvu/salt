@@ -93,11 +93,11 @@ def get_rules(file_name, arguments=None, control_flag=None, interface=None,
     matches = []
     for rule in rules:
         match = False
-        if interface == rule['interface']:
+        if interface == rule.get('interface'):
             match = True
-        if control_flag == rule['control_flag']:
+        if control_flag == rule.get('control_flag'):
             match = True
-        if module == rule['module']:
+        if module == rule.get('module'):
             match = True
         if arguments:
             for key in rule.keys():
