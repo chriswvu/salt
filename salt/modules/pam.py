@@ -85,8 +85,8 @@ def read_file(file_name):
     '''
     return _parse(file_name=file_name)
 
-def get_rules(file_name, arguments=None, control_flag=None, interface=None,
-              module=None):
+def get_rules(file_name, control_flag=None, interface=None,
+              module=None, arguments=[]):
     '''
     '''
     rules = read_file(file_name)
@@ -99,10 +99,9 @@ def get_rules(file_name, arguments=None, control_flag=None, interface=None,
             match = True
         if module == rule.get('module'):
             match = True
-        if arguments:
-            for key in rule.keys():
-                if arguments in rule[key]:
-                   match = True
+        if (len(arguments) !=0) & (len(rule['arguments']) != 0):
+            if all(i in arguments for i in rule['arguments']):
+                match = True
         if match:
             matches.append(rule)
     return matches
