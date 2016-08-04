@@ -8,6 +8,7 @@ from collections import OrderedDict
 # Import python libs
 import os
 import logging
+import copy
 
 # Import salt libs
 import salt.utils
@@ -94,11 +95,11 @@ def get_rules(file_name, control_flag=None, interface=None,
     matches = []
     for rule in rules:
         match = False
-        if interface == rule.get('interface'):
+        if interface and interface == rule.get('interface'):
             match = True
-        if control_flag == rule.get('control_flag'):
+        if control_flag and control_flag == rule.get('control_flag'):
             match = True
-        if module == rule.get('module'):
+        if module and module == rule.get('module'):
             match = True
         if arguments and rule.get('arguments'):
             if all(i in rule['arguments'] for i in arguments):
@@ -109,7 +110,7 @@ def get_rules(file_name, control_flag=None, interface=None,
     return matches
     
   def insert_rule(interface=None, control_flag=None, module=None, 
-                  arguments=[]):
+                  arguments=None):
     '''
     Insert a new rule in a pam file
     '''
@@ -118,6 +119,6 @@ def get_rules(file_name, control_flag=None, interface=None,
     insert.append({'interface':interface, 'control_flag':control_flag,'module':module})
 #    for rule in insert:
 #        print (rule['interface'])
-    print (insert)
-    return insert       
+#    print (insert)
+#    return insert       
     
