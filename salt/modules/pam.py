@@ -3,6 +3,7 @@
 Support for pam
 '''
 from __future__ import absolute_import
+from collections import OrderedDict
 
 # Import python libs
 import os
@@ -86,7 +87,7 @@ def read_file(file_name):
     return _parse(file_name=file_name)
 
 def get_rules(file_name, control_flag=None, interface=None,
-              module=None, arguments=[]):
+              module=None, arguments=None):
     '''
     '''
     rules = read_file(file_name)
