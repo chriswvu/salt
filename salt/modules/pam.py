@@ -99,9 +99,24 @@ def get_rules(file_name, control_flag=None, interface=None,
             match = True
         if module == rule.get('module'):
             match = True
-        if (len(arguments) !=0) & (len(rule['arguments']) != 0):
-            if all(i in arguments for i in rule['arguments']):
-                match = True
+        if arguments and rule.get('arguments'):
+            if all(i in rule['arguments'] for i in arguments):
+                if all(i in arguments for i in rule['arguments']):
+                    match = True
         if match:
             matches.append(rule)
     return matches
+    
+  def insert_rule(interface=None, control_flag=None, module=None, 
+                  arguments=[]):
+    '''
+    Insert a new rule in a pam file
+    '''
+    rules = read_file(file_name)
+    insert = copy.deepcopy(rules)
+    insert.append({'interface':interface, 'control_flag':control_flag,'module':module})
+#    for rule in insert:
+#        print (rule['interface'])
+    print (insert)
+    return insert       
+    
