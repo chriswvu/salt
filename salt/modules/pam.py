@@ -114,11 +114,10 @@ def get_rules(file_name, control_flag=None, interface=None,
     '''
     Insert a new rule in a pam file
     '''
-    rules = read_file(file_name)
-    insert = copy.deepcopy(rules)
-    insert.append({'interface':interface, 'control_flag':control_flag,'module':module})
-#    for rule in insert:
-#        print (rule['interface'])
-#    print (insert)
-#    return insert       
+    insert = read_file(file_name)
+    for i, j in  enumerate(insert):
+        if j['interface'] == interface:
+            index = i+1
+    insert.insert(index, {'interface':interface, 'control_flag':control_flag,'module':module})
+    return insert   
     
