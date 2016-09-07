@@ -109,7 +109,7 @@ def get_rules(file_name, control_flag=None, interface=None,
             matches.append(rule)
     return matches
     
-  def insert_rule(interface=None, control_flag=None, module=None, 
+  def insert_rule(file_name, interface=None, control_flag=None, module=None, 
                   arguments=None):
     '''
     Insert a new rule in a pam file
@@ -119,5 +119,5 @@ def get_rules(file_name, control_flag=None, interface=None,
         if j['interface'] == interface:
             index = i+1
     insert.insert(index, {'interface':interface, 'control_flag':control_flag,'module':module})
-    return insert   
+    return insert
     
