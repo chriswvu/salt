@@ -121,3 +121,25 @@ def get_rules(file_name, control_flag=None, interface=None,
     insert.insert(index, {'interface':interface, 'control_flag':control_flag,'module':module})
     return insert
     
+    def write_rule(file_name):
+    '''
+    Write out rule to file
+    '''
+    output = read_file(file_name)
+    fout = open('pam_output.txt','w')
+    fout.write("#%PAM-1.0\n")
+    fout.write("# This file is auto-generated.\n")
+    fout.write("# User changes will be destroyed the next time authconfig is run.\n")
+    old_interfaces = set()
+    for  value  in output:
+        if 'interface' in value and value['interface'] not in old_interfaces:
+            old_interfaces.add(value['interface'])
+            fout.write("\n")
+        if 'control_flag' in value:
+            if '=' in value['control_flag']:
+                value['control_flag'] = '[{0}]'.format(value['control_flag'])
+        fout.write('{0}{1} {2} '.format(value['interface'].ljust(12, ' '), value['control_flag'].ljust(13, ' '), value['module']))
+        for item in value['arguments']:
+            fout.write('{0} '.format(item))
+        fout.write('\n')
+    fout.close()
