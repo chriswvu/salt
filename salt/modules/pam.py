@@ -118,7 +118,7 @@ def insert_rule(file_name, interface=None, control_flag=None, module=None,
     for i, j in  enumerate(insert):
         if j['interface'] == interface:
             index = i+1
-    insert.insert(index, {'interface':interface, 'control_flag':control_flag,'module':module})
+    insert.insert(index, {'interface':interface, 'control_flag':control_flag,'module':module, 'arguments':arguments})
     return insert
 
 def write_rule(file_name):
@@ -154,5 +154,5 @@ def update_rule(file_name, interface=None, control_flag=None, module=None,
         if interface and interface == rule.get('interface'):
             if module and module == rule.get('module'):
                 index = i
-    update.insert(index, {'interface':new_interface, 'control_flag':new_control_flag,'module':new_module})
+    update.insert(index, {'interface':new_interface, 'control_flag':new_control_flag,'module':new_module, 'arguments':new_arguments})
     return update
