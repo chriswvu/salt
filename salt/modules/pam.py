@@ -121,11 +121,11 @@ def insert_rule(file_name, interface=None, control_flag=None, module=None,
     insert.insert(index, {'interface':interface, 'control_flag':control_flag,'module':module, 'arguments':arguments})
     return insert
 
-def write_rule(file_name):
+def write_rule(rule_list):
     '''
     Write out rule to file
     '''
-    output = read_file(file_name)
+    output = rule_list
     fout = open('pam_output.txt','w')
     fout.write("#%PAM-1.0\n")
     fout.write("# This file is auto-generated.\n")
@@ -154,5 +154,6 @@ def update_rule(file_name, interface=None, control_flag=None, module=None,
         if interface and interface == rule.get('interface'):
             if module and module == rule.get('module'):
                 index = i
-    update.insert(index, {'interface':new_interface, 'control_flag':new_control_flag,'module':new_module, 'arguments':new_arguments})
+    update[index] = {'interface':new_interface, 'control_flag':new_control_flag,'module':new_module, 'arguments':new_arguments}
+    write_rule(rule_list=update)
     return update
